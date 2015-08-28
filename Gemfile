@@ -38,7 +38,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'unicorn'
 
 gem 'i18n'
+gem 'virtus'
 gem 'draper'
+gem 'interactor'
+gem 'interactor-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -51,7 +54,12 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_girl_rails"
   gem 'ffaker'
+
   gem "cucumber"
+  gem 'cucumber-rails', :require => false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
+
   gem "capybara"
   # The driver for browser testing may be switched back to the default (:rack_test,
   # without Javascript support) with: > Capybara.use_default_driver
