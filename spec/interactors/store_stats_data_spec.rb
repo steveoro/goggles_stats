@@ -8,7 +8,8 @@ require_relative '../../app/interactors/store_stats_data'
 
 describe StoreStatsData, type: :interactor do
 
-  let(:stats_data)   { StatsData.new( key: FFaker::Lorem.word, value: FFaker::Lorem.word ) }
+  let(:key)         { FFaker::Lorem.word }
+  let(:stats_data)  { StatsData.new( key: key, value: FFaker::Lorem.word ) }
 
   subject { StoreStatsData.new( stats_data: stats_data ) }
 
@@ -28,6 +29,8 @@ describe StoreStatsData, type: :interactor do
   describe "#call" do
     it "stores the key on Redis" do
       expect( subject.call ).to eq( StoreStatsData::SUCCESS )
+      # Let's clean-up the Redis instance:
+      expect( Redis.current.del(key) ).to eq(1)
     end
   end
   #-- -------------------------------------------------------------------------

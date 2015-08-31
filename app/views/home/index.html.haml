@@ -9,4 +9,8 @@
     .list-group
       - @stats_names.each do |stats_name|
         .list-group-item
-          = link_to( stats_name, home_detail_path( stats_key: stats_name ) )
+          .row
+            .col-md-11
+              = link_to( stats_name, home_detail_path(stats_key: stats_name) )
+            .col-md-1
+              = link_to( "[-] delete", home_destroy_path(stats_name: stats_name), method: :delete, data: { confirm: "Do You really want to erase all stats about '#{stats_name}'?" } )

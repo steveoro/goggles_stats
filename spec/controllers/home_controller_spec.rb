@@ -22,4 +22,15 @@ RSpec.describe HomeController, type: :controller do
   end
   #-- -------------------------------------------------------------------------
   #++
+
+  describe "DELETE #destroy" do
+    it "redirects to home#index" do
+      Redis.current.multi                           # Crude transaction start
+      delete :destroy, stats_name: Redis.current.keys.first
+      expect(response).to redirect_to( home_index_path() )
+      Redis.current.discard                         # Crude transaction rollback
+    end
+  end
+  #-- -------------------------------------------------------------------------
+  #++
 end

@@ -12,7 +12,6 @@ describe StatsKeyUpdater, type: :interactor do
 
   subject { StatsKeyUpdater.new( key: key ) }
 
-
   it "responds to #call" do
     expect( subject ).to respond_to(:call)
   end
@@ -28,6 +27,8 @@ describe StatsKeyUpdater, type: :interactor do
   describe "#call" do
     it "adds the key to the list of stats keys used when missing" do
       expect( subject.call ).to be true
+      # Let's clean-up the Redis instance:
+      expect( Redis.current.srem(StatsKeyUpdater::STATS_KEY_SET_NAME, key) ).to be true
     end
   end
   #-- -------------------------------------------------------------------------

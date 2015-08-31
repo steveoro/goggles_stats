@@ -10,7 +10,7 @@ describe FileParser, type: :interactor do
 
   let(:file_name)   { File.join(Rails.root, "test/fixtures/users_x_day-20150101-20150826.csv") }
 
-  subject { FileParser.new( file_name: file_name ) }
+  subject           { FileParser.new( file_name: file_name ) }
 
 
   it "responds to #call" do
