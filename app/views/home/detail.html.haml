@@ -1,0 +1,13 @@
+.container
+  .page-header
+    .row
+      %h2
+        = "Details for #{ @stats_name }"
+  .row
+    .list-group
+      = @stats_json_data.each do |stats_json_data|
+        .list-group-item
+          - result_hash = JSON.load( stats_json_data )
+          - result_hash.each do |key, value|
+            = "#{ key }: #{ value }"
+            &nbsp;

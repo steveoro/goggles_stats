@@ -18,10 +18,8 @@ describe StoreStatsData, type: :interactor do
   end
 
 
-  context "when created with a valid StatsData object," do
+  context "when created with a valid context," do
     it "holds the object in context" do
-# DEBUG
-#      puts "\r\n#{ subject.context.inspect }"
       expect( subject.context.stats_data ).to eq( stats_data )
     end
   end

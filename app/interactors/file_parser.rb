@@ -3,6 +3,7 @@
 require 'fileutils'
 require 'interactor'
 require_relative '../models/stats_data'
+require 'stats_key_updater'
 
 
 =begin
@@ -40,10 +41,23 @@ class FileParser
             result_hash[ element ] = curr_values[index]
           end
           # Prerare a unique key for the current row and store the resulting JSON
-          # encoded string as its values on Redis:
-          key    = result_hash.first.join(': ')
+          # encoded string as its values on Redis.
+          # As ID key we'll use the first pair from the resulting Hash/JSON object
+          # from the parsing.
+          #
+          # Example with a row resulting from the parsing procedure:
+          #
+          #  { 'url' => /whatever.com/index.html, 'sessions' => 132, 'day' => 15/06/1969 }
+          #
+          # => Key: "url: /whatever.com/index.html"
+          # => Value: (the whole Hash object encoded as a JSON string)
+          #
+          key = result_hash.first.join(': ')
 
-          # We'll encode the aggregated hash object as JSON string.
+          # We'll add also the base name of the base key used to a commodity set:
+          StatsKeyUpdater.new( key: result_hash.first.first ).call
+
+          # We'll now encode the aggregated hash object as JSON string.
           # To decode, read the value from Redis using the key and use JSON.load to
           # get a resulting Hash.
           # (Passing the Hash to a dedicated Virtus.model will create an instance

@@ -1,0 +1,12 @@
+.container
+  .page-header
+    .row
+      %h2
+        Imported stats
+  .row
+    Click on a stat name to view its details:
+  .row
+    .list-group
+      = @stats_names.each do |stats_name|
+        .list-group-item
+          = link_to( stats_name, home_detail_path( stats_key: stats_name ) )
