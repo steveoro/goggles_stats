@@ -22,10 +22,7 @@ class HomeController < ApplicationController
   def detail
     @stats_name = params[:stats_key]
     keys = Redis.current.keys( "*#{ @stats_name }*" )
-    @stats_json_data = Redis.current.mget( keys )
-#    @stats_details = stats_json_data.map do |stats_json_data|
-#      # TODO
-#    end
+    @stats_json_data = (keys.instance_of?(Array) && keys.size > 0) ? Redis.current.mget( keys ) : []
   end
   #-- -------------------------------------------------------------------------
   #++
