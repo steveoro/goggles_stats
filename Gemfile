@@ -5,10 +5,16 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 # Use mysql as the database for Active Record
 gem 'mysql2'
-gem 'redis'
-gem 'redis-namespace'
-
 gem 'haml'
+
+# Redis support dropped on current master branch.
+# (Toggle comments for redis to restore.)
+# gem 'redis'
+# gem 'redis-namespace'
+
+# MongoDB support:
+gem 'mongoid', '~> 5.0.0.beta'
+gem "bson_ext"
 
 
 # Gems used only for assets and not required
